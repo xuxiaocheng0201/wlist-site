@@ -7,7 +7,7 @@
     <script async>
         (() => {
             function error() {
-                alert('No available site. Please refresh later.')
+                alert('No available site. Please refresh later.');
             }
             $.ajax({
                 type: 'get',
@@ -15,14 +15,14 @@
                 success: msg => {
                     if (msg.code < 0) {
                         error();
-                        return
+                        return;
                     }
                     let ok = false, ajax = [];
                     $(document).ajaxStop(() => {
-                        error()
+                        error();
                     })
                     for (const link of msg.link) {
-                        if (ok) break
+                        if (ok) break;
                         let a = $.ajax({
                             type: 'get',
                             url: link,
@@ -37,8 +37,8 @@
                             },
                             error: () => {
                             }
-                        })
-                        ajax.push(a)
+                        });
+                        ajax.push(a);
                     }
                 },
                 error: error
