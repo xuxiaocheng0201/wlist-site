@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script async>
+        (() => {
+            function error() {
+                alert('No available site. Please refresh later.')
+            }
+            $.ajax({
+                type: 'get',
+                url: 'https://links.wlist.pages.dev/links.json',
+                success: msg => {
+                    if (msg.code < 0) {
+                        error();
+                        return
+                    }
+                    let ok = false, ajax = [];
+                    $(document).ajaxStop(() => {
+                        error()
+                    })
+                    for (const link of msg.link) {
+                        if (ok) break
+                        let a = $.ajax({
+                            type: 'get',
+                            url: link,
+                            success: () => {
+                                if (ok) return
+                                ok = true;
+                                $(document).ajaxStop(void 0)
+                                ajax.forEach(function (item) {
+                                    item.abort()
+                                })
+                                window.location.href = link;
+                            },
+                            error: () => {
+                            }
+                        })
+                        ajax.push(a)
+                    }
+                },
+                error: error
+            })
+        })()
+    </script>
+</head>
+</html>
