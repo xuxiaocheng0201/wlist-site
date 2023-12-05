@@ -19,13 +19,15 @@
                     }
                     let ok = false, ajax = [];
                     $(document).ajaxStop(() => {
-                        error();
+                        if (!ok)
+                            error();
                     })
                     for (const link of msg.link) {
                         if (ok) break;
+                        console.log(link);
                         let a = $.ajax({
                             type: 'get',
-                            url: link,
+                            url: link + "/ping",
                             success: () => {
                                 if (ok) return
                                 ok = true;
