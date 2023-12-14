@@ -1,7 +1,13 @@
 {
   "code": 0,
   "link": [
-    "nrkmkh0p.dongtaiyuming.net",
-    "12.tcp.cpolar.top:10541"
+    {
+	  "host": "nrkmkh0p.dongtaiyuming.net",
+	  "port": 1379
+    },
+	{
+	  "host": "18.tcp.cpolar.top:10541",
+	  "port": 13318
+	}
   ]
 }
